@@ -1,6 +1,6 @@
 package br.com.ifrs.frete.util;
 
-public enum MontaMenu {
+public enum OpcoesMenu {
     CAD_FRETE(1, "Cadastrar Frete"),
     PES_FRETE_NOME(2, "Pesquisar Frete usando o nome do cliente"),
     PESQ_FRETE_CPF(3, "Pesquisar Frete usando CPF do Cliente"),
@@ -12,7 +12,7 @@ public enum MontaMenu {
     private final String descricao;
     private final int codigo;
 
-    private MontaMenu(int codigo, String descricao){
+    private OpcoesMenu(int codigo, String descricao){
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -23,5 +23,10 @@ public enum MontaMenu {
 
     public int getCodigo() {
         return codigo;
+    }
+
+    @Override
+    public String toString() {
+        return codigo + " - " + descricao+"\n";
     }
 }

@@ -2,14 +2,15 @@ package br.com.ifrs.frete.pessoas;
 
 public class Cliente extends Pessoa{
     private String endereco, telefone, cpf;
-    private int numero;
+    private static int numeroClientes = 0;
+    private int numero = 0;
 
-    public Cliente(String nome,String endereco,String telefone,String cpf, int numero) {
+    public Cliente(String nome,String endereco,String telefone,String cpf) {
         super(nome);
         this.endereco = endereco;
         this.telefone = telefone;
         this.cpf = cpf;
-        this.numero = numero;
+        this.numero = 1;
     }
 
     public String getEndereco() {
@@ -44,12 +45,16 @@ public class Cliente extends Pessoa{
         this.numero = numero;
     }
 
+    public static int getTotal(){
+        return numeroClientes;
+    }
+
     @Override
     public String toString(){
         return "\nNome: " + super.toString() +
                "\nEndereço: " + getEndereco() +
                "\nTelefone: " + getTelefone() +
                "\nCPF: " + getCpf() +
-               "\nNumero: " + getNumero();
+               "\nNumero: " + getNumero()+"\n";
     }
 }
