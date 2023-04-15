@@ -27,7 +27,8 @@ public final class ItemFrete implements Comparable<ItemFrete>{
 
     @Override
     public String toString() {
-        return "\nDescrição: "+getDescricao() + "\npeso: "+getPeso();
+        return "\nDescrição: "+getDescricao() +
+               "\npeso: "+getPeso();
     }
 
     @Override

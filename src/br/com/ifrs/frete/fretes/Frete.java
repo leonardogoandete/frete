@@ -93,13 +93,18 @@ public class Frete implements Validator {
 
     @Override
     public String toString(){
-        return "====== Fretes Goandete ltda ====== "+
-               "\nCliente: "+ getCliente().getNome()+
+        StringBuilder itens = new StringBuilder();
+        for (ItemFrete item : listaItens){
+            if (item != null) itens.append(item.toString());
+        }
+
+
+        return "\nCliente: "+ getCliente().getNome()+
                "\nvalor: " + getValor()+
                "\nPeso total: " + getPesoTotal()+
                "\nOrigem: " + getCidadeOrigem()+
                "\nDestino: " + getCidadeDestino()+
-               "\nItens: " + getListaItens()+
+               "\nItens: " + itens +
                "\nSituação: " + getSituacao().getNome()+"\n";
     }
 }

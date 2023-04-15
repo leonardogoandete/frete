@@ -18,8 +18,40 @@ public class Main {
         return Integer.parseInt(JOptionPane.showInputDialog(null, stringMenu.toString()));
     }
 
+    public static Frete buscarFretePorNomeCliente(String nome, List<Frete> fretes){
+        for (Frete frete: fretes){
+            Cliente cliente = frete.getCliente();
+            if(cliente.getNome().equalsIgnoreCase(nome)){
+                return frete;
+            }
+        }
+        return null;
+    }
+
+    public static Frete buscarFretePorCpfCliente(String cpf, List<Frete> fretes){
+        for (Frete frete: fretes){
+            Cliente cliente = frete.getCliente();
+            if(cliente.getCpf().equalsIgnoreCase(cpf)){
+                return frete;
+            }
+        }
+        return null;
+    }
+
+    public static Frete buscarFretePorOrigemEDestino(String origem,String destino, List<Frete> fretes){
+        for (Frete frete: fretes){
+            if(frete.getCidadeOrigem().equalsIgnoreCase(origem) &&
+                    frete.getCidadeDestino().equalsIgnoreCase(destino)){
+                return frete;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         LinkedList<Frete> fretes = new LinkedList<>();
+        Frete frete = null;
+
         List<ItemFrete> lll = new ArrayList<>();
         lll.add(new ItemFrete("Aaaa",11.4d));
         Cliente cli1 = new Cliente("Leo","Guedes","51999","180180");
@@ -50,24 +82,49 @@ public class Main {
                                 JOptionPane.showInputDialog(null,"Municipio de destino:"),
                                 itens));
                     }catch (Exception e){
-                        JOptionPane.showMessageDialog(null,e.getMessage());
+                        JOptionPane.showMessageDialog(null,"Erro ao cadastrar frete: Erro: "+ e.getMessage());
                     }
                     break;
                 case 2:
+                    frete = buscarFretePorNomeCliente(JOptionPane.showInputDialog(null, "Digite o nome do cliente:"),fretes);
+                    if (frete != null) {
+                        JOptionPane.showMessageDialog(null, frete.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não há fretes com o nome pesquisado!");
+                    }
                     break;
                 case 3:
+                    frete = buscarFretePorCpfCliente(JOptionPane.showInputDialog(null, "Digite o CPF do cliente:"),fretes);
+                    if (frete != null) {
+                        JOptionPane.showMessageDialog(null, frete.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não há fretes com o CPF pesquisado!");
+                    }
                     break;
                 case 4:
+                    frete = buscarFretePorOrigemEDestino(
+                            JOptionPane.showInputDialog(null, "Digite a origem:"),
+                            JOptionPane.showInputDialog(null, "Digite o destino:"),
+                            fretes);
+                    if (frete != null) {
+                        JOptionPane.showMessageDialog(null, frete.toString());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não há fretes com o Origem e Destino pesquisado!");
+                    }
                     break;
                 case 5:
-                    JOptionPane.showMessageDialog(null,fretes.toString());
+                    StringBuilder listaFretes = new StringBuilder();
+                    for (Frete listaFrete: fretes){
+                        listaFretes.append(listaFrete.toString());
+                    }
+                    JOptionPane.showMessageDialog(null,listaFretes);
                     break;
                 case 6:
-                    List<Cliente> lista = new ArrayList<>();
-                    for (Frete frete: fretes) {
-                        lista.add(frete.getCliente());
+                    StringBuilder listaCLientes = new StringBuilder();
+                    for (Frete clientesFrete: fretes){
+                        listaCLientes.append(clientesFrete.getCliente().toString());
                     }
-                    JOptionPane.showMessageDialog(null,lista.toString().replaceAll(",",""));
+                    JOptionPane.showMessageDialog(null,listaCLientes);
                     break;
                 case 7:
                     System.exit(0);
