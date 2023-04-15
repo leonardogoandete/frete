@@ -1,6 +1,6 @@
 package br.com.ifrs.frete.fretes;
 
-public class ItemFrete {
+public final class ItemFrete {
     private String descricao;
     private double peso;
 
