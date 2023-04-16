@@ -14,7 +14,7 @@
    número total de clientes cadastrados
 - [x] O método getTotal() retorna o número de clientes criados, use para isso a
    variável de classe definida na classe Cliente
-- [ ] Faça as modificações necessárias na classe Frete para que seus objetos possam
+- [x] Faça as modificações necessárias na classe Frete para que seus objetos possam
     ser armazenados em um conjunto ordenado. Use o valor do frete para a ordenação
     dos objetos Tema Frete
 

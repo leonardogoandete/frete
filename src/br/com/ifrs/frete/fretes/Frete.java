@@ -5,9 +5,10 @@ import br.com.ifrs.frete.util.Situacao;
 import br.com.ifrs.frete.util.Validator;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.TreeSet;
 
-public class Frete implements Validator {
+public class Frete implements Validator, Comparable<Frete> {
     private double valor, pesoTotal;
     private String cidadeOrigem, cidadeDestino;
     private TreeSet<ItemFrete> listaItens = new TreeSet<>();
@@ -92,12 +93,31 @@ public class Frete implements Validator {
     }
 
     @Override
+    public int compareTo(Frete obj) {
+        if (obj.getValor() > this.valor) return 1;
+        if (obj.getValor() < this.valor  ) return -1;
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Frete frete = (Frete) obj;
+        return Double.compare(frete.valor, valor) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(valor);
+    }
+
+    @Override
     public String toString(){
         StringBuilder itens = new StringBuilder();
         for (ItemFrete item : listaItens){
             if (item != null) itens.append(item.toString());
         }
-
 
         return "\nCliente: "+ getCliente().getNome()+
                "\nvalor: " + getValor()+
@@ -107,4 +127,5 @@ public class Frete implements Validator {
                "\nItens: " + itens +
                "\nSituação: " + getSituacao().getNome()+"\n";
     }
+
 }

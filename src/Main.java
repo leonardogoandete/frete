@@ -6,8 +6,8 @@ import br.com.ifrs.frete.util.OpcoesMenu;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
 
 
 public class Main {
@@ -18,7 +18,7 @@ public class Main {
         return Integer.parseInt(JOptionPane.showInputDialog(null, stringMenu.toString()));
     }
 
-    public static Frete buscarFretePorNomeCliente(String nome, List<Frete> fretes){
+    public static Frete buscarFretePorNomeCliente(String nome, TreeSet<Frete> fretes){
         for (Frete frete: fretes){
             Cliente cliente = frete.getCliente();
             if(cliente.getNome().equalsIgnoreCase(nome)){
@@ -28,7 +28,7 @@ public class Main {
         return null;
     }
 
-    public static Frete buscarFretePorCpfCliente(String cpf, List<Frete> fretes){
+    public static Frete buscarFretePorCpfCliente(String cpf, TreeSet<Frete> fretes){
         for (Frete frete: fretes){
             Cliente cliente = frete.getCliente();
             if(cliente.getCpf().equalsIgnoreCase(cpf)){
@@ -38,7 +38,7 @@ public class Main {
         return null;
     }
 
-    public static Frete buscarFretePorOrigemEDestino(String origem,String destino, List<Frete> fretes){
+    public static Frete buscarFretePorOrigemEDestino(String origem,String destino, TreeSet<Frete> fretes){
         for (Frete frete: fretes){
             if(frete.getCidadeOrigem().equalsIgnoreCase(origem) &&
                     frete.getCidadeDestino().equalsIgnoreCase(destino)){
@@ -49,7 +49,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        LinkedList<Frete> fretes = new LinkedList<>();
+        TreeSet<Frete> fretes = new TreeSet<>();
         Frete frete = null;
 
         List<ItemFrete> lll = new ArrayList<>();
