@@ -77,7 +77,7 @@ public class Main {
 
                         fretes.add(new Frete(
                                 cli,
-                                Double.parseDouble(JOptionPane.showInputDialog(null,"Digite o valor:")),
+                                Double.parseDouble(JOptionPane.showInputDialog(null,"Digite o valor do frete:")),
                                 JOptionPane.showInputDialog(null,"Municipio de origem:"),
                                 JOptionPane.showInputDialog(null,"Municipio de destino:"),
                                 itens));
