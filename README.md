@@ -10,14 +10,13 @@
    peso total é necessário somar o peso de cada item do frete
 - [x] A classe Pessoa é abstrata
 - [x] A classe ItemFrete é final
-- [ ] O número do Cliente deve ser declarado como variável de classe e determinar o
+- [x] O número do Cliente deve ser declarado como variável de classe e determinar o
    número total de clientes cadastrados
-- [ ] O método getTotal() retorna o número de clientes criados, use para isso a
+- [x] O método getTotal() retorna o número de clientes criados, use para isso a
    variável de classe definida na classe Cliente
 - [ ] Faça as modificações necessárias na classe Frete para que seus objetos possam
     ser armazenados em um conjunto ordenado. Use o valor do frete para a ordenação
-    dos objetos
-    Tema Frete
+    dos objetos Tema Frete
 
 - [x] Crie o menu abaixo:
     ```
