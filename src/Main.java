@@ -31,7 +31,7 @@ public class Main {
                     cadastrarFrete();
                     break;
                 case 2:
-                    frete = buscarFretePorNomeCliente(JOptionPane.showInputDialog(null, "Digite o nome do cliente:"), fretes);
+                    frete = buscarFretePorNomeCliente(JOptionPane.showInputDialog(null, "Digite o nome do cliente:"));
                     if (frete != null) {
                         JOptionPane.showMessageDialog(null, frete.toString());
                     } else {
@@ -39,7 +39,7 @@ public class Main {
                     }
                     break;
                 case 3:
-                    frete = buscarFretePorCpfCliente(JOptionPane.showInputDialog(null, "Digite o CPF do cliente:"), fretes);
+                    frete = buscarFretePorCpfCliente(JOptionPane.showInputDialog(null, "Digite o CPF do cliente:"));
                     if (frete != null) {
                         JOptionPane.showMessageDialog(null, frete.toString());
                     } else {
@@ -49,8 +49,7 @@ public class Main {
                 case 4:
                     frete = buscarFretePorOrigemEDestino(
                             JOptionPane.showInputDialog(null, "Digite a origem:"),
-                            JOptionPane.showInputDialog(null, "Digite o destino:"),
-                            fretes);
+                            JOptionPane.showInputDialog(null, "Digite o destino:"));
                     if (frete != null) {
                         JOptionPane.showMessageDialog(null, frete.toString());
                     } else {
@@ -108,7 +107,6 @@ public class Main {
         }
     }
 
-
     public static int exibeMenu() {
         StringBuilder stringMenu = new StringBuilder();
         for (OpcoesMenu opcaoMenu : OpcoesMenu.values())
@@ -116,7 +114,7 @@ public class Main {
         return Integer.parseInt(JOptionPane.showInputDialog(null, stringMenu.toString()));
     }
 
-    public static Frete buscarFretePorNomeCliente(String nome, TreeSet<Frete> fretes) {
+    public static Frete buscarFretePorNomeCliente(String nome) {
         for (Frete frete : fretes) {
             Cliente cliente = frete.getCliente();
             if (cliente.getNome().equalsIgnoreCase(nome)) {
@@ -126,7 +124,7 @@ public class Main {
         return null;
     }
 
-    public static Frete buscarFretePorCpfCliente(String cpf, TreeSet<Frete> fretes) {
+    public static Frete buscarFretePorCpfCliente(String cpf) {
         for (Frete frete : fretes) {
             Cliente cliente = frete.getCliente();
             if (cliente.getCpf().equalsIgnoreCase(cpf)) {
@@ -136,7 +134,7 @@ public class Main {
         return null;
     }
 
-    public static Frete buscarFretePorOrigemEDestino(String origem, String destino, TreeSet<Frete> fretes) {
+    public static Frete buscarFretePorOrigemEDestino(String origem, String destino) {
         for (Frete frete : fretes) {
             if (frete.getCidadeOrigem().equalsIgnoreCase(origem) &&
                     frete.getCidadeDestino().equalsIgnoreCase(destino)) {
