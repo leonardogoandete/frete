@@ -15,6 +15,7 @@ public class Frete implements Validator, Comparable<Frete> {
     private Cliente cliente;
     private Situacao situacao;
 
+    public Frete(){}
     public Frete(Cliente cliente, double valor, String cidadeOrigem, String cidadeDestino, List<ItemFrete> listaItens) {
         this.valor = valor;
         this.pesoTotal = 0;
@@ -37,7 +38,6 @@ public class Frete implements Validator, Comparable<Frete> {
     public double getPesoTotal() {
         return pesoTotal;
     }
-
 
     public void setPesoTotal() {
         if (listaItens != null && !listaItens.isEmpty()){
