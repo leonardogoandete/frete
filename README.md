@@ -5,8 +5,8 @@
 - [x] Cliente é uma Pessoa 
 - [x] Frete tem vários itens (no mínimo 0) que são armazenados em uma TreeSet
 - [x] Um Frete tem um Cliente
-- [ ] O Frete tem situação, mapeada usando enum
-- [ ] O peso do Frete deve ser validado usando a interface Validador, para calcular o
+- [x] O Frete tem situação, mapeada usando enum
+- [x] O peso do Frete deve ser validado usando a interface Validador, para calcular o
    peso total é necessário somar o peso de cada item do frete
 - [x] A classe Pessoa é abstrata
 - [x] A classe ItemFrete é final
