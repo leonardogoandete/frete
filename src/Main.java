@@ -32,14 +32,13 @@ public class Main {
                         cadastrarFrete();
                         break;
                     case 2:
-                        buscarFretePorNomeCliente(JOptionPane.showInputDialog(null, "Digite o nome do cliente:"));
+                        buscarFretePorNomeCliente();
                         break;
                     case 3:
-                        buscarFretePorCpfCliente(JOptionPane.showInputDialog(null, "Digite o CPF do cliente:"));
+                        buscarFretePorCpfCliente();
                         break;
                     case 4:
-                        buscarFretePorOrigemEDestino(JOptionPane.showInputDialog(null, "Digite a origem:"),
-                                JOptionPane.showInputDialog(null, "Digite o destino:"));
+                        buscarFretePorOrigemEDestino();
                         break;
                     case 5:
                         listarTodosFretes();
@@ -48,10 +47,7 @@ public class Main {
                         listarTodosClientes();
                         break;
                     case 7:
-                        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?");
-                        if (confirmacao == JOptionPane.YES_OPTION) {
-                            System.exit(0);
-                        }
+                        sair();
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "Opção inválida!");
@@ -70,16 +66,10 @@ public class Main {
         double pesoTotal = 0;
         Frete f1 = new Frete();
         try {
-            Cliente cli = new Cliente(
-                    JOptionPane.showInputDialog(null, "Nome do cliente:"),
-                    JOptionPane.showInputDialog(null, "Endereço do cliente:"),
-                    JOptionPane.showInputDialog(null, "Telefone do cliente:"),
-                    JOptionPane.showInputDialog(null, "CPF o cliente:"));
+            Cliente cli = new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente:"), JOptionPane.showInputDialog(null, "Endereço do cliente:"), JOptionPane.showInputDialog(null, "Telefone do cliente:"), JOptionPane.showInputDialog(null, "CPF o cliente:"));
             while (JOptionPane.showConfirmDialog(null, "Deseja incluir item?") == JOptionPane.YES_OPTION) {
-                ItemFrete it = new ItemFrete(JOptionPane.showInputDialog(null, "Descrição do item:"),
-                        Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:")));
+                ItemFrete it = new ItemFrete(JOptionPane.showInputDialog(null, "Descrição do item:"), Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:")));
                 pesoTotal += it.getPeso();
-
                 if (f1.validaPeso(pesoTotal)) {
                     itens.add(it);
                 } else {
@@ -87,11 +77,7 @@ public class Main {
                     break;
                 }
             }
-
-            fretes.add(new Frete(cli, Double.parseDouble(
-                    JOptionPane.showInputDialog(null, "Digite o valor do frete:")),
-                    JOptionPane.showInputDialog(null, "Municipio de origem:"),
-                    JOptionPane.showInputDialog(null, "Municipio de destino:"), itens));
+            fretes.add(new Frete(cli, Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor do frete:")), JOptionPane.showInputDialog(null, "Municipio de origem:"), JOptionPane.showInputDialog(null, "Municipio de destino:"), itens));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: Erro: " + e.getMessage());
         }
@@ -104,63 +90,88 @@ public class Main {
         return Integer.parseInt(JOptionPane.showInputDialog(null, stringMenu.toString()));
     }
 
-    public static void buscarFretePorNomeCliente(String nome) {
-        StringBuilder sb = new StringBuilder();
-        boolean flag = false;
-        for (Frete frete : fretes) {
-            Cliente cliente = frete.getCliente();
-            if (cliente.getNome().equalsIgnoreCase(nome)) {
-                flag = true;
-                sb.append(frete);
+    public static void buscarFretePorNomeCliente() {
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        else {
+            String nome = JOptionPane.showInputDialog(null, "Digite o nome do cliente:");
+            StringBuilder sb = new StringBuilder();
+            boolean flag = false;
+            for (Frete frete : fretes) {
+                Cliente cliente = frete.getCliente();
+                if (cliente.getNome().equalsIgnoreCase(nome)) {
+                    flag = true;
+                    sb.append(frete);
+                }
             }
+            if (!flag) JOptionPane.showMessageDialog(null, "Não há clientes com o nome pesquisado!");
+            else JOptionPane.showMessageDialog(null, sb);
         }
-        if (!flag) JOptionPane.showMessageDialog(null, "Não há clientes com o nome pesquisado!");
-        else JOptionPane.showMessageDialog(null, sb);
     }
 
-    public static void buscarFretePorCpfCliente(String cpf) {
-        StringBuilder sb = new StringBuilder();
-        boolean flag = false;
-        for (Frete frete : fretes) {
-            Cliente cliente = frete.getCliente();
-            if (cliente.getCpf().equalsIgnoreCase(cpf)) {
-                flag = true;
-                sb.append(frete);
+    public static void buscarFretePorCpfCliente() {
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        else {
+            String cpf = JOptionPane.showInputDialog(null, "Digite o CPF do cliente:");
+            StringBuilder sb = new StringBuilder();
+            boolean flag = false;
+            for (Frete frete : fretes) {
+                Cliente cliente = frete.getCliente();
+                if (cliente.getCpf().equalsIgnoreCase(cpf)) {
+                    flag = true;
+                    sb.append(frete);
+                }
             }
+            if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com o CPF pesquisado!");
+            else JOptionPane.showMessageDialog(null, sb);
         }
-        if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com o CPF pesquisado!");
-        else JOptionPane.showMessageDialog(null, sb);
     }
 
-    public static void buscarFretePorOrigemEDestino(String origem, String destino) {
-        StringBuilder sb = new StringBuilder();
-        boolean flag = false;
-        for (Frete frete : fretes) {
-            if (frete.getCidadeOrigem().equalsIgnoreCase(origem) && frete.getCidadeDestino().equalsIgnoreCase(destino)) {
-                flag = true;
-                sb.append(frete);
-                //JOptionPane.showMessageDialog(null, frete.toString());
+    public static void buscarFretePorOrigemEDestino() {
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        else {
+            String origem = JOptionPane.showInputDialog(null, "Digite a origem:");
+            String destino = JOptionPane.showInputDialog(null, "Digite o destino:");
+            StringBuilder sb = new StringBuilder();
+            boolean flag = false;
+            for (Frete frete : fretes) {
+                if (frete.getCidadeOrigem().equalsIgnoreCase(origem) && frete.getCidadeDestino().equalsIgnoreCase(destino)) {
+                    flag = true;
+                    sb.append(frete);
+                }
             }
+            if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com a Origem e Destino pesquisado!");
+            else JOptionPane.showMessageDialog(null, sb);
         }
-        if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com a Origem e Destino pesquisado!");
-        else JOptionPane.showMessageDialog(null, sb);
     }
 
     public static void listarTodosFretes() {
-        StringBuilder listaFretes = new StringBuilder();
-        for (Frete listaFrete : fretes) {
-            listaFretes.append(listaFrete.toString());
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        else {
+            StringBuilder listaFretes = new StringBuilder();
+            for (Frete listaFrete : fretes) {
+                listaFretes.append(listaFrete.toString());
+            }
+            JOptionPane.showMessageDialog(null, listaFretes);
         }
-        JOptionPane.showMessageDialog(null, listaFretes);
     }
 
     public static void listarTodosClientes() {
-        StringBuilder listaCLientes = new StringBuilder();
-        listaCLientes.append("Numero total de clientes: " +Cliente.getTotal()+"\n");
-        for (Frete clientesFrete : fretes) {
-            listaCLientes.append(clientesFrete.getCliente().toString());
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há clientes cadastrados!");
+        else {
+            StringBuilder listaCLientes = new StringBuilder();
+            listaCLientes.append("Numero total de clientes: ").append(Cliente.getTotal()).append("\n");
+            for (Frete clientesFrete : fretes) {
+                listaCLientes.append(clientesFrete.getCliente().toString());
+            }
+            JOptionPane.showMessageDialog(null, listaCLientes);
         }
-        JOptionPane.showMessageDialog(null, listaCLientes);
+    }
+
+    public static void sair() {
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?");
+        if (confirmacao == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 }
 

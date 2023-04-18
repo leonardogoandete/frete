@@ -16,7 +16,9 @@ public class Frete implements Validator, Comparable<Frete> {
     private Cliente cliente;
     private Situacao situacao;
 
-    public Frete() {}
+    public Frete() {
+    }
+
     public Frete(Cliente cliente, double valor, String cidadeOrigem, String cidadeDestino, List<ItemFrete> listaItens) {
         this.valor = valor;
         this.pesoTotal = 0;
@@ -116,10 +118,12 @@ public class Frete implements Validator, Comparable<Frete> {
     @Override
     public String toString() {
         StringBuilder itens = new StringBuilder();
-        for (ItemFrete item : listaItens) {
-            if (item != null) itens.append(item.toString());
+        if (listaItens.isEmpty()) itens.append("Não ha itens");
+        else {
+            for (ItemFrete item : listaItens) {
+                if (item != null) itens.append(item.toString());
+            }
         }
-
         return "\nCliente: " + getCliente().getNome() +
                 "\nValor: " + getValor() +
                 "\nPeso total: " + getPesoTotal() +
