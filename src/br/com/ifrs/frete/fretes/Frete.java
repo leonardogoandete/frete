@@ -121,7 +121,7 @@ public class Frete implements Validator, Comparable<Frete> {
         }
 
         return "\nCliente: " + getCliente().getNome() +
-                "\nvalor: " + getValor() +
+                "\nValor: " + getValor() +
                 "\nPeso total: " + getPesoTotal() +
                 "\nOrigem: " + getCidadeOrigem() +
                 "\nDestino: " + getCidadeDestino() +

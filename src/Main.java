@@ -83,7 +83,7 @@ public class Main {
                 if (f1.validaPeso(pesoTotal)) {
                     itens.add(it);
                 } else {
-                    JOptionPane.showMessageDialog(null, String.format("Limite de peso atingido!\nCota: %.2f restante\nItem: %s não foi adicionado!", (pesoTotal - 100), it.getDescricao()));
+                    JOptionPane.showMessageDialog(null, String.format("Limite de peso atingido!\nCota: %.2f restante\nItem: %s não foi adicionado!", (100 - pesoTotal), it.getDescricao()));
                     break;
                 }
             }
@@ -156,6 +156,7 @@ public class Main {
 
     public static void listarTodosClientes() {
         StringBuilder listaCLientes = new StringBuilder();
+        listaCLientes.append("Numero total de clientes: " +Cliente.getTotal()+"\n");
         for (Frete clientesFrete : fretes) {
             listaCLientes.append(clientesFrete.getCliente().toString());
         }
