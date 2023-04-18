@@ -2,8 +2,6 @@ import br.com.ifrs.frete.fretes.Frete;
 import br.com.ifrs.frete.fretes.ItemFrete;
 import br.com.ifrs.frete.pessoas.Cliente;
 import br.com.ifrs.frete.util.OpcoesMenu;
-import br.com.ifrs.frete.util.Situacao;
-
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -17,13 +15,16 @@ public class Main {
     public static void main(String[] args) {
 
         List<ItemFrete> lll = new ArrayList<>();
+        List<ItemFrete> fff = new ArrayList<>();
         lll.add(new ItemFrete("Aaaa", 11.4d));
+        fff.add(new ItemFrete("Aaaa", 9.4d));
+        fff.add(new ItemFrete("Bbbb", 9.4d));
         Cliente cli1 = new Cliente("Leo", "Guedes", "51999", "180180");
         Cliente cli2 = new Cliente("Lari", "Veiga", "98797", "98796");
         Cliente cli3 = new Cliente("Leo", "Rua XV de Piracicaba", "3434314", "180180");
         fretes.add(new Frete(cli1, 222.01d, "POA", "SDU", lll));
         fretes.add(new Frete(cli2, 444.09d, "FLP", "KDX", lll));
-        fretes.add(new Frete(cli3, 333.98d, "FLP", "KDX", lll));
+        fretes.add(new Frete(cli3, 333.98d, "FLP", "KDX", fff));
 
         while (true) {
             try {
@@ -53,8 +54,6 @@ public class Main {
                         JOptionPane.showMessageDialog(null, "Opção inválida!");
                         break;
                 }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Valor inserido não é um inteiro!\n" + e.getMessage());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Erro inesperado: " + e.getMessage());
             }
@@ -62,24 +61,43 @@ public class Main {
     }
 
     private static void cadastrarFrete() {
-        List<ItemFrete> itens = new ArrayList<>();
-        double pesoTotal = 0;
+        Cliente cli;
         Frete f1 = new Frete();
+        double valorFrete, pesoTotal = 0.0;
+        String origem, destino;
+        List<ItemFrete> listaItens = new ArrayList<>();
+
         try {
-            Cliente cli = new Cliente(JOptionPane.showInputDialog(null, "Nome do cliente:"), JOptionPane.showInputDialog(null, "Endereço do cliente:"), JOptionPane.showInputDialog(null, "Telefone do cliente:"), JOptionPane.showInputDialog(null, "CPF o cliente:"));
+            // montando o cliente
+            String nome = JOptionPane.showInputDialog(null, "Nome do cliente:");
+            String endereco = JOptionPane.showInputDialog(null, "Endereço do cliente:");
+            String telefone = JOptionPane.showInputDialog(null, "Telefone do cliente:");
+            String cpf = JOptionPane.showInputDialog(null, "CPF o cliente:");
+            cli = new Cliente(nome, endereco, telefone, cpf);
+
+            // Incluindo itens
             while (JOptionPane.showConfirmDialog(null, "Deseja incluir item?") == JOptionPane.YES_OPTION) {
-                ItemFrete it = new ItemFrete(JOptionPane.showInputDialog(null, "Descrição do item:"), Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:")));
-                pesoTotal += it.getPeso();
-                if (f1.validaPeso(pesoTotal)) {
-                    itens.add(it);
-                } else {
-                    JOptionPane.showMessageDialog(null, String.format("Limite de peso atingido!\nCota: %.2f restante\nItem: %s não foi adicionado!", (100 - pesoTotal), it.getDescricao()));
+                String descricao = JOptionPane.showInputDialog(null, "Descrição do item:");
+                double peso = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:"));
+                ItemFrete item = new ItemFrete(descricao, peso);
+                pesoTotal += peso;
+                // valido se o peso limite não foi atingido
+                if (!f1.validaPeso(pesoTotal)) {
+                    JOptionPane.showMessageDialog(null, String.format("Limite de peso atingido!\nCota: %.2f restante\nItem: %s não foi adicionado!", (100 - pesoTotal), item.getDescricao()));
                     break;
                 }
+                listaItens.add(item);
             }
-            fretes.add(new Frete(cli, Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor do frete:")), JOptionPane.showInputDialog(null, "Municipio de origem:"), JOptionPane.showInputDialog(null, "Municipio de destino:"), itens));
+            valorFrete = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor do frete:"));
+            origem = JOptionPane.showInputDialog(null, "Município de origem:");
+            destino = JOptionPane.showInputDialog(null, "Município de destino:");
+            fretes.add(new Frete(cli, valorFrete, origem, destino, listaItens));
+        } catch (NumberFormatException e) {
+            //tratando as conversões de numero.
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: Não foi possivel converter o numero.\n" + e.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: Erro: " + e.getMessage());
+            //tratando outras excessoes que pode ocorrer.
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: " + e.getMessage());
         }
     }
 
@@ -87,7 +105,12 @@ public class Main {
         StringBuilder stringMenu = new StringBuilder();
         for (OpcoesMenu opcaoMenu : OpcoesMenu.values())
             stringMenu.append(opcaoMenu.toString());
-        return Integer.parseInt(JOptionPane.showInputDialog(null, stringMenu.toString()));
+        try {
+            return Integer.parseInt(JOptionPane.showInputDialog(null, stringMenu.toString()));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Valor inserido não é um inteiro!\n" + e.getMessage());
+            return 0;
+        }
     }
 
     public static void buscarFretePorNomeCliente() {
@@ -103,7 +126,7 @@ public class Main {
                     sb.append(frete);
                 }
             }
-            if (!flag) JOptionPane.showMessageDialog(null, "Não há clientes com o nome pesquisado!");
+            if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com o nome do cliente pesquisado!");
             else JOptionPane.showMessageDialog(null, sb);
         }
     }

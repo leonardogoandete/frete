@@ -4,6 +4,7 @@ public final class ItemFrete implements Comparable<ItemFrete> {
     private String descricao;
     private double peso;
 
+    public ItemFrete(){}
     public ItemFrete(String descricao, double peso) {
         this.descricao = descricao;
         this.peso = peso;

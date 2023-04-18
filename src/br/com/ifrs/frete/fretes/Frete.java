@@ -107,7 +107,7 @@ public class Frete implements Validator, Comparable<Frete> {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         Frete frete = (Frete) obj;
-        return Double.compare(frete.valor, valor) == 0;
+        return Double.compare(frete.getValor(), valor) == 0;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class Frete implements Validator, Comparable<Frete> {
         if (listaItens.isEmpty()) itens.append("Não ha itens");
         else {
             for (ItemFrete item : listaItens) {
-                if (item != null) itens.append(item.toString());
+                if (item != null) itens.append(item);
             }
         }
         return "\nCliente: " + getCliente().getNome() +
