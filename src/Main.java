@@ -26,35 +26,41 @@ public class Main {
         fretes.add(new Frete(cli3, 333.98d, "FLP", "KDX", lll));
 
         while (true) {
-            switch (exibeMenu()) {
-                case 1:
-                    cadastrarFrete();
-                    break;
-                case 2:
-                    buscarFretePorNomeCliente(JOptionPane.showInputDialog(null, "Digite o nome do cliente:"));
-                    break;
-                case 3:
-                    buscarFretePorCpfCliente(JOptionPane.showInputDialog(null, "Digite o CPF do cliente:"));
-                    break;
-                case 4:
-                    buscarFretePorOrigemEDestino(JOptionPane.showInputDialog(null, "Digite a origem:"),
-                            JOptionPane.showInputDialog(null, "Digite o destino:"));
-                    break;
-                case 5:
-                    listarTodosFretes();
-                    break;
-                case 6:
-                    listarTodosClientes();
-                    break;
-                case 7:
-                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?");
-                    if (confirmacao == JOptionPane.YES_OPTION) {
-                        System.exit(0);
-                    }
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida!");
-                    break;
+            try {
+                switch (exibeMenu()) {
+                    case 1:
+                        cadastrarFrete();
+                        break;
+                    case 2:
+                        buscarFretePorNomeCliente(JOptionPane.showInputDialog(null, "Digite o nome do cliente:"));
+                        break;
+                    case 3:
+                        buscarFretePorCpfCliente(JOptionPane.showInputDialog(null, "Digite o CPF do cliente:"));
+                        break;
+                    case 4:
+                        buscarFretePorOrigemEDestino(JOptionPane.showInputDialog(null, "Digite a origem:"),
+                                JOptionPane.showInputDialog(null, "Digite o destino:"));
+                        break;
+                    case 5:
+                        listarTodosFretes();
+                        break;
+                    case 6:
+                        listarTodosClientes();
+                        break;
+                    case 7:
+                        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?");
+                        if (confirmacao == JOptionPane.YES_OPTION) {
+                            System.exit(0);
+                        }
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "Opção inválida!");
+                        break;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Valor inserido não é um inteiro!\n" + e.getMessage());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro inesperado: " + e.getMessage());
             }
         }
     }
