@@ -67,6 +67,8 @@ public class Main {
 
     private static void cadastrarFrete() {
         List<ItemFrete> itens = new ArrayList<>();
+        double pesoTotal = 0;
+        Frete f1 = new Frete();
         try {
             Cliente cli = new Cliente(
                     JOptionPane.showInputDialog(null, "Nome do cliente:"),
@@ -74,24 +76,22 @@ public class Main {
                     JOptionPane.showInputDialog(null, "Telefone do cliente:"),
                     JOptionPane.showInputDialog(null, "CPF o cliente:"));
             while (JOptionPane.showConfirmDialog(null, "Deseja incluir item?") == JOptionPane.YES_OPTION) {
-                itens.add(new ItemFrete(
-                        JOptionPane.showInputDialog(null, "Descrição do item:"),
-                        Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:"))));
+                ItemFrete it = new ItemFrete(JOptionPane.showInputDialog(null, "Descrição do item:"),
+                        Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:")));
+                pesoTotal += it.getPeso();
+
+                if (f1.validaPeso(pesoTotal)) {
+                    itens.add(it);
+                } else {
+                    JOptionPane.showMessageDialog(null, String.format("Limite de peso atingido!\nCota: %.2f restante\nItem: %s não foi adicionado!", (pesoTotal - 100), it.getDescricao()));
+                    break;
+                }
             }
 
-            Frete frete = new Frete(cli, Double.parseDouble(
+            fretes.add(new Frete(cli, Double.parseDouble(
                     JOptionPane.showInputDialog(null, "Digite o valor do frete:")),
                     JOptionPane.showInputDialog(null, "Municipio de origem:"),
-                    JOptionPane.showInputDialog(null, "Municipio de destino:"), itens);
-
-            if (frete.validaPeso(frete.getPesoTotal())) {
-                JOptionPane.showMessageDialog(null, "Frete cadastrado");
-            } else {
-                frete.setSituacao(Situacao.CANCELADO);
-                JOptionPane.showMessageDialog(null, "Frete cancelado, peso excedido!");
-            }
-            fretes.add(frete);
-
+                    JOptionPane.showInputDialog(null, "Municipio de destino:"), itens));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: Erro: " + e.getMessage());
         }
