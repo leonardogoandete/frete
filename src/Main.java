@@ -16,14 +16,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Frete frete = null;
-
         List<ItemFrete> lll = new ArrayList<>();
         lll.add(new ItemFrete("Aaaa", 11.4d));
         Cliente cli1 = new Cliente("Leo", "Guedes", "51999", "180180");
         Cliente cli2 = new Cliente("Lari", "Veiga", "98797", "98796");
+        Cliente cli3 = new Cliente("Leo", "Rua XV de Piracicaba", "3434314", "180180");
         fretes.add(new Frete(cli1, 222.01d, "POA", "SDU", lll));
         fretes.add(new Frete(cli2, 444.09d, "FLP", "KDX", lll));
+        fretes.add(new Frete(cli3, 333.98d, "FLP", "KDX", lll));
 
         while (true) {
             switch (exibeMenu()) {
@@ -47,7 +47,10 @@ public class Main {
                     listarTodosClientes();
                     break;
                 case 7:
-                    System.exit(0);
+                    int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?");
+                    if (confirmacao == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opção inválida!");
@@ -64,7 +67,7 @@ public class Main {
                     JOptionPane.showInputDialog(null, "Endereço do cliente:"),
                     JOptionPane.showInputDialog(null, "Telefone do cliente:"),
                     JOptionPane.showInputDialog(null, "CPF o cliente:"));
-            while (JOptionPane.showConfirmDialog(null, "Deseja incluir item?") == 0) {
+            while (JOptionPane.showConfirmDialog(null, "Deseja incluir item?") == JOptionPane.YES_OPTION) {
                 itens.add(new ItemFrete(
                         JOptionPane.showInputDialog(null, "Descrição do item:"),
                         Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:"))));
@@ -96,38 +99,45 @@ public class Main {
     }
 
     public static void buscarFretePorNomeCliente(String nome) {
+        StringBuilder sb = new StringBuilder();
         boolean flag = false;
         for (Frete frete : fretes) {
             Cliente cliente = frete.getCliente();
             if (cliente.getNome().equalsIgnoreCase(nome)) {
                 flag = true;
-                JOptionPane.showMessageDialog(null, frete.toString());
+                sb.append(frete);
             }
         }
-        if (!flag) JOptionPane.showMessageDialog(null, "Não existe cliente.");
+        if (!flag) JOptionPane.showMessageDialog(null, "Não há clientes com o nome pesquisado!");
+        else JOptionPane.showMessageDialog(null, sb);
     }
 
     public static void buscarFretePorCpfCliente(String cpf) {
+        StringBuilder sb = new StringBuilder();
         boolean flag = false;
         for (Frete frete : fretes) {
             Cliente cliente = frete.getCliente();
             if (cliente.getCpf().equalsIgnoreCase(cpf)) {
                 flag = true;
-                JOptionPane.showMessageDialog(null, frete.toString());
+                sb.append(frete);
             }
         }
         if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com o CPF pesquisado!");
+        else JOptionPane.showMessageDialog(null, sb);
     }
 
     public static void buscarFretePorOrigemEDestino(String origem, String destino) {
+        StringBuilder sb = new StringBuilder();
         boolean flag = false;
         for (Frete frete : fretes) {
             if (frete.getCidadeOrigem().equalsIgnoreCase(origem) && frete.getCidadeDestino().equalsIgnoreCase(destino)) {
                 flag = true;
-                JOptionPane.showMessageDialog(null, frete.toString());
+                sb.append(frete);
+                //JOptionPane.showMessageDialog(null, frete.toString());
             }
         }
-        if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com o Origem e Destino pesquisado!");
+        if (!flag) JOptionPane.showMessageDialog(null, "Não há fretes com a Origem e Destino pesquisado!");
+        else JOptionPane.showMessageDialog(null, sb);
     }
 
     public static void listarTodosFretes() {
