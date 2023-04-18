@@ -7,12 +7,12 @@ public enum OpcoesMenu {
     PESQ_FRETE_ORI_DEST(4, "Pesquisar Frete usando cidade de origem e destino"),
     LISTA_TODOS_FRETES(5, "Listar todos os Fretes"),
     LISTA_TODOS_CLIENTE(6, "Listar todos os Clientes cadastrados"),
-    SAIR(7,"Sair");
+    SAIR(7, "Sair");
 
     private final String descricao;
     private final int codigo;
 
-    private OpcoesMenu(int codigo, String descricao){
+    private OpcoesMenu(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
@@ -27,6 +27,6 @@ public enum OpcoesMenu {
 
     @Override
     public String toString() {
-        return codigo + " - " + descricao+"\n";
+        return codigo + " - " + descricao + "\n";
     }
 }

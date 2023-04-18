@@ -15,7 +15,7 @@ public class Frete implements Validator, Comparable<Frete> {
     private Cliente cliente;
     private Situacao situacao;
 
-    public Frete(){}
+    public Frete() {}
     public Frete(Cliente cliente, double valor, String cidadeOrigem, String cidadeDestino, List<ItemFrete> listaItens) {
         this.valor = valor;
         this.pesoTotal = 0;
@@ -40,8 +40,8 @@ public class Frete implements Validator, Comparable<Frete> {
     }
 
     public void setPesoTotal() {
-        if (listaItens != null && !listaItens.isEmpty()){
-            for (ItemFrete itemFrete: listaItens) {
+        if (listaItens != null && !listaItens.isEmpty()) {
+            for (ItemFrete itemFrete : listaItens) {
                 pesoTotal += itemFrete.getPeso();
             }
         }
@@ -88,14 +88,14 @@ public class Frete implements Validator, Comparable<Frete> {
     }
 
     @Override
-    public boolean validaPeso(double peso){
+    public boolean validaPeso(double peso) {
         return peso >= 1 && peso <= 100;
     }
 
     @Override
     public int compareTo(Frete obj) {
         if (obj.getValor() > this.valor) return 1;
-        if (obj.getValor() < this.valor  ) return -1;
+        if (obj.getValor() < this.valor) return -1;
         return 0;
     }
 
@@ -113,19 +113,19 @@ public class Frete implements Validator, Comparable<Frete> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder itens = new StringBuilder();
-        for (ItemFrete item : listaItens){
+        for (ItemFrete item : listaItens) {
             if (item != null) itens.append(item.toString());
         }
 
-        return "\nCliente: "+ getCliente().getNome()+
-               "\nvalor: " + getValor()+
-               "\nPeso total: " + getPesoTotal()+
-               "\nOrigem: " + getCidadeOrigem()+
-               "\nDestino: " + getCidadeDestino()+
-               "\nItens: " + itens +
-               "\nSituação: " + getSituacao().getNome()+"\n";
+        return "\nCliente: " + getCliente().getNome() +
+                "\nvalor: " + getValor() +
+                "\nPeso total: " + getPesoTotal() +
+                "\nOrigem: " + getCidadeOrigem() +
+                "\nDestino: " + getCidadeDestino() +
+                "\nItens: " + itens +
+                "\nSituação: " + getSituacao().getNome() + "\n";
     }
 
 }

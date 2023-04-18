@@ -1,6 +1,6 @@
 package br.com.ifrs.frete.fretes;
 
-public final class ItemFrete implements Comparable<ItemFrete>{
+public final class ItemFrete implements Comparable<ItemFrete> {
     private String descricao;
     private double peso;
 
@@ -27,8 +27,8 @@ public final class ItemFrete implements Comparable<ItemFrete>{
 
     @Override
     public String toString() {
-        return "\nDescrição: "+getDescricao() +
-               "\npeso: "+getPeso();
+        return "\nDescrição: " + getDescricao() +
+                "\npeso: " + getPeso();
     }
 
     @Override

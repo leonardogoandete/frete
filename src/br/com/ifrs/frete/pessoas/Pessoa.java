@@ -3,7 +3,7 @@ package br.com.ifrs.frete.pessoas;
 public abstract class Pessoa {
     private String nome;
 
-    public Pessoa(String nome){
+    public Pessoa(String nome) {
         this.nome = nome;
     }
 
@@ -16,7 +16,7 @@ public abstract class Pessoa {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getNome();
     }
 }
