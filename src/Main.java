@@ -73,18 +73,18 @@ public class Main {
                         Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o peso:"))));
             }
 
-            Frete f = new Frete(cli, Double.parseDouble(
+            Frete frete = new Frete(cli, Double.parseDouble(
                     JOptionPane.showInputDialog(null, "Digite o valor do frete:")),
                     JOptionPane.showInputDialog(null, "Municipio de origem:"),
                     JOptionPane.showInputDialog(null, "Municipio de destino:"), itens);
 
-            if (f.validaPeso(f.getPesoTotal())) {
+            if (frete.validaPeso(frete.getPesoTotal())) {
                 JOptionPane.showMessageDialog(null, "Frete cadastrado");
             } else {
-                f.setSituacao(Situacao.CANCELADO);
+                frete.setSituacao(Situacao.CANCELADO);
                 JOptionPane.showMessageDialog(null, "Frete cancelado, peso excedido!");
             }
-            fretes.add(f);
+            fretes.add(frete);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: Erro: " + e.getMessage());
