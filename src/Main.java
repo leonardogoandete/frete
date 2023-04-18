@@ -12,7 +12,7 @@ import java.util.TreeSet;
 
 
 public class Main {
-    private static TreeSet<Frete> fretes = new TreeSet<>();
+    private static final TreeSet<Frete> fretes = new TreeSet<>();
 
     public static void main(String[] args) {
 
