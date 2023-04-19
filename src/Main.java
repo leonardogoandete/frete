@@ -2,6 +2,7 @@ import br.com.ifrs.frete.fretes.Frete;
 import br.com.ifrs.frete.fretes.ItemFrete;
 import br.com.ifrs.frete.pessoas.Cliente;
 import br.com.ifrs.frete.util.OpcoesMenu;
+import br.com.ifrs.frete.util.Situacao;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -91,7 +92,11 @@ public class Main {
             valorFrete = Double.parseDouble(JOptionPane.showInputDialog(null, "Digite o valor do frete:"));
             origem = JOptionPane.showInputDialog(null, "Município de origem:");
             destino = JOptionPane.showInputDialog(null, "Município de destino:");
-            fretes.add(new Frete(cli, valorFrete, origem, destino, listaItens));
+
+            Frete frete = new Frete(cli, valorFrete, origem, destino, listaItens);
+            if (listaItens.isEmpty()) frete.setSituacao(Situacao.CANCELADO); // verifica se tem itens na lista
+            fretes.add(frete);
+
         } catch (NumberFormatException e) {
             //tratando as conversões de numero.
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar frete: Não foi possivel converter o numero.\n" + e.getMessage());

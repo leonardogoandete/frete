@@ -118,19 +118,16 @@ public class Frete implements Validator, Comparable<Frete> {
     @Override
     public String toString() {
         StringBuilder itens = new StringBuilder();
-        if (listaItens.isEmpty()) itens.append("Não ha itens");
-        else {
-            for (ItemFrete item : listaItens) {
-                if (item != null) itens.append(item);
-            }
+        for (ItemFrete item : listaItens) {
+            if (item != null) itens.append(item);
         }
+
         return "\nCliente: " + getCliente().getNome() +
                 "\nValor: " + getValor() +
                 "\nPeso total: " + getPesoTotal() +
                 "\nOrigem: " + getCidadeOrigem() +
                 "\nDestino: " + getCidadeDestino() +
-                "\nItens: " + itens +
+                "\nItens: " + (itens.length() > 0 ? itens : "Não há itens") +
                 "\nSituação: " + getSituacao().getNome() + "\n";
     }
-
 }
