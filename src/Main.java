@@ -12,6 +12,7 @@ import java.util.TreeSet;
 
 public class Main {
     private static final TreeSet<Frete> fretes = new TreeSet<>();
+    private static final String naoHaFretes = "Não há fretes cadastrados!";
 
     public static void main(String[] args) {
 
@@ -64,8 +65,10 @@ public class Main {
     private static void cadastrarFrete() {
         Cliente cli;
         Frete f1 = new Frete();
-        double valorFrete, pesoTotal = 0.0;
-        String origem, destino;
+        double valorFrete;
+        double pesoTotal = 0.0;
+        String origem;
+        String destino;
         List<ItemFrete> listaItens = new ArrayList<>();
 
         try {
@@ -119,7 +122,7 @@ public class Main {
     }
 
     public static void buscarFretePorNomeCliente() {
-        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, naoHaFretes);
         else {
             String nome = JOptionPane.showInputDialog(null, "Digite o nome do cliente:");
             StringBuilder sb = new StringBuilder();
@@ -137,7 +140,7 @@ public class Main {
     }
 
     public static void buscarFretePorCpfCliente() {
-        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, naoHaFretes);
         else {
             String cpf = JOptionPane.showInputDialog(null, "Digite o CPF do cliente:");
             StringBuilder sb = new StringBuilder();
@@ -155,7 +158,7 @@ public class Main {
     }
 
     public static void buscarFretePorOrigemEDestino() {
-        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, naoHaFretes);
         else {
             String origem = JOptionPane.showInputDialog(null, "Digite a origem:");
             String destino = JOptionPane.showInputDialog(null, "Digite o destino:");
@@ -173,7 +176,7 @@ public class Main {
     }
 
     public static void listarTodosFretes() {
-        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, "Não há fretes cadastrados!");
+        if (fretes.isEmpty()) JOptionPane.showMessageDialog(null, naoHaFretes);
         else {
             StringBuilder listaFretes = new StringBuilder();
             for (Frete listaFrete : fretes) {
