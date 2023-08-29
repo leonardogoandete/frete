@@ -9,9 +9,12 @@ import java.util.Objects;
 import java.util.TreeSet;
 
 public class Frete implements Validator, Comparable<Frete> {
-    private static final double PESO_MINIMO = 0, PESO_MAXIMO = 100;
-    private double valor, pesoTotal;
-    private String cidadeOrigem, cidadeDestino;
+    private static double pesoMinimo = 0;
+    private static double pesoMaximo = 100;
+    private double valor;
+    private double pesoTotal;
+    private String cidadeOrigem;
+    private String cidadeDestino;
     private TreeSet<ItemFrete> listaItens = new TreeSet<>();
     private Cliente cliente;
     private Situacao situacao;
@@ -92,7 +95,7 @@ public class Frete implements Validator, Comparable<Frete> {
 
     @Override
     public boolean validaPeso(double peso) {
-        return peso > PESO_MINIMO && peso <= PESO_MAXIMO;
+        return peso > pesoMinimo && peso <= pesoMaximo;
     }
 
     @Override
